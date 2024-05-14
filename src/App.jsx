@@ -1,5 +1,5 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom"
-
+import Container from "react-bootstrap/Container"
 import ChatPage from "./pages/ChatPage"
 import HomePage from "./pages/HomePage"
 import LoginPage from "./pages/LoginPage"
@@ -13,7 +13,7 @@ const router = createBrowserRouter([
       <>
         <HomePage />
       </>
-    )
+    ),
   },
   {
     path: "/chat",
@@ -21,7 +21,7 @@ const router = createBrowserRouter([
       <>
         <ChatPage />
       </>
-    )
+    ),
   },
   {
     path: "/profile",
@@ -29,15 +29,15 @@ const router = createBrowserRouter([
       <>
         <ProfilePage />
       </>
-    )
+    ),
   },
   {
     path: "/login",
     element: (
-      <>
+      <Container>
         <LoginPage />
-      </>
-    )
+      </Container>
+    ),
   },
   {
     path: "/register",
@@ -45,9 +45,8 @@ const router = createBrowserRouter([
       <>
         <RegisterPage />
       </>
-    )
+    ),
   },
-
 ])
 
 function App() {
