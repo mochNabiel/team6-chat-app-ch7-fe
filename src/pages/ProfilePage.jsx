@@ -53,7 +53,6 @@ const ProfilePage = () => {
                 <Card.Body>
                   <Card.Title>Name : {user?.name}</Card.Title>
                   <Card.Title>Email : {user?.email}</Card.Title>
-                  <Card.Title>Role : {user?.role}</Card.Title>
                 </Card.Body>
                 <Row className="ms-1">
                   <Col lg={6} md={12}>
