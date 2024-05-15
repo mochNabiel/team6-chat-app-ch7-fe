@@ -16,8 +16,8 @@ import LoginPage from "./pages/LoginPage"
 import ProfilePage from "./pages/ProfilePage"
 import RegisterPage from "./pages/RegisterPage"
 
-import "bootstrap/dist/css/bootstrap.min.css";
-import "react-toastify/dist/ReactToastify.css";
+import "bootstrap/dist/css/bootstrap.min.css"
+import "react-toastify/dist/ReactToastify.css"
 
 const router = createBrowserRouter([
   {
@@ -32,7 +32,6 @@ const router = createBrowserRouter([
         </Protected>
       </>
     ),
-    ),
   },
   {
     path: "/chat",
@@ -46,7 +45,6 @@ const router = createBrowserRouter([
         </Protected>
       </>
     ),
-    ),
   },
   {
     path: "/profile",
@@ -59,7 +57,6 @@ const router = createBrowserRouter([
           </Container>
         </Protected>
       </>
-    ),
     ),
   },
   {
@@ -84,7 +81,6 @@ const router = createBrowserRouter([
           </Container>
         </NonProtected>
       </>
-    ),
     ),
   },
 ])
