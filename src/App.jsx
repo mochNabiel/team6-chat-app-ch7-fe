@@ -85,7 +85,7 @@ const router = createBrowserRouter([
   },
 ])
 
-function App() {
+export default function App() {
   return (
     <Provider store={store}>
       <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
@@ -95,5 +95,3 @@ function App() {
     </Provider>
   )
 }
-
-export default App
