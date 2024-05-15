@@ -22,10 +22,11 @@ export const login =
 
     try {
       const response = await axios.request(config)
-
+      // console.log(response.data)
       // get and save the token to local storage
-      const { data } = response.data
+      const {data} = response.data
       const { token, user } = data
+      console.log("token", token)
 
       // Change the token value in the reducer
       dispatch(setToken(token))
@@ -103,7 +104,7 @@ export const getProfile =
 
     let config = {
       method: "get",
-      url: `${import.meta.env.VITE_BACKEND_API}/api/auth/profile`,
+      url: `${import.meta.env.VITE_BACKEND_API}/api/auth`,
       headers: {
         Authorization: `Bearer ${token}`,
       },

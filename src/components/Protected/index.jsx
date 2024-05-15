@@ -1,16 +1,18 @@
 import axios from "axios";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Protected = ({ children }) => {
+  const navigate = useNavigate();
 
   const getProfile = async (token) => {
     if(!token) {
-      return (window.location = "/login");
+      return (navigate("/login"));
     }
     let config = {
       method: "get",
       maxBodyLength: Infinity,
-      url: `${import.meta.env.VITE_BACKEND_API}/api/auth/profile`,
+      url: `${import.meta.env.VITE_BACKEND_API}/api/auth`,
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -20,7 +22,7 @@ const Protected = ({ children }) => {
       await axios.request(config);
     } catch (error) {
       localStorage.removeItem("token");
-      window.location = "/";
+      navigate("/login");
     }
   };
 
