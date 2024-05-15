@@ -16,8 +16,8 @@ import LoginPage from "./pages/LoginPage"
 import ProfilePage from "./pages/ProfilePage"
 import RegisterPage from "./pages/RegisterPage"
 
-import "bootstrap/dist/css/bootstrap.min.css";
-import "react-toastify/dist/ReactToastify.css";
+import "bootstrap/dist/css/bootstrap.min.css"
+import "react-toastify/dist/ReactToastify.css"
 
 const router = createBrowserRouter([
   {
