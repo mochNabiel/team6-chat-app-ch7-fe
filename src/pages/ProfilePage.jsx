@@ -10,6 +10,18 @@ import { getProfile } from "../redux/actions/auth"
 
 import userProfile from "../assets/user-profile.jpg"
 
+import { useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { useNavigate } from "react-router-dom"
+
+import { Button, Card, Row, Col } from "react-bootstrap"
+import Spinner from "react-bootstrap/Spinner"
+import { IoMdReturnLeft } from "react-icons/io"
+
+import { getProfile } from "../redux/actions/auth"
+
+import userProfile from "../assets/user-profile.jpg"
+
 const ProfilePage = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -53,7 +65,6 @@ const ProfilePage = () => {
                 <Card.Body>
                   <Card.Title>Name : {user?.name}</Card.Title>
                   <Card.Title>Email : {user?.email}</Card.Title>
-                  <Card.Title>Role : {user?.role}</Card.Title>
                 </Card.Body>
                 <Row className="ms-1">
                   <Col lg={6} md={12}>
