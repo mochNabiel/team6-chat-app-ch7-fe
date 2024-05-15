@@ -32,6 +32,7 @@ const router = createBrowserRouter([
         </Protected>
       </>
     ),
+    ),
   },
   {
     path: "/chat",
@@ -45,6 +46,7 @@ const router = createBrowserRouter([
         </Protected>
       </>
     ),
+    ),
   },
   {
     path: "/profile",
@@ -57,6 +59,7 @@ const router = createBrowserRouter([
           </Container>
         </Protected>
       </>
+    ),
     ),
   },
   {
@@ -81,6 +84,7 @@ const router = createBrowserRouter([
           </Container>
         </NonProtected>
       </>
+    ),
     ),
   },
 ])
