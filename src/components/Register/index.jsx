@@ -1,8 +1,16 @@
-import { useState, useEffect } from "react"
-import Button from "react-bootstrap/Button"
-import Form from "react-bootstrap/Form"
+import { useState } from "react"
+import { Button, Form } from "react-bootstrap"
+import { toast } from "react-toastify"
+import { useDispatch } from "react-redux"
+import { useNavigate } from "react-router-dom"
+
+import { register } from "../../redux/actions/auth"
+import GoogleLogin from "../GoogleLogin"
 
 function Register() {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -10,10 +18,22 @@ function Register() {
   const [photo, setPhoto] = useState()
   const [isLoading, setIsLoading] = useState(false)
 
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    if (password !== confirmPassword) {
+      toast.error("Password not match")
+      setIsLoading(false)
+      return
+    }
+
+    dispatch(register(navigate, name, email, password, photo, setIsLoading))
+  }
   return (
     <>
       <Form
-        // onSubmit={onSubmit}
+        onSubmit={handleSubmit}
+        encType="multipart/form-data"
         className="p-3 mb-5 bg-body-primary rounded border"
       >
         <Form.Group className="mb-3" controlId="name">
@@ -69,9 +89,8 @@ function Register() {
         <Button variant="primary" type="submit" disabled={isLoading}>
           {isLoading ? "Processing..." : "Register"}
         </Button>
-        {/* {"  or  "}
-        <GoogleLogin text={"Register with Google"} />{" "} */}
       </Form>
+      <GoogleLogin text={"Register with Google"} />
     </>
   )
 }

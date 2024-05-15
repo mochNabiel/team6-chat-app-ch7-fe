@@ -1,56 +1,103 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom"
+import { Provider } from "react-redux"
+import { GoogleOAuthProvider } from "@react-oauth/google"
+import { ToastContainer } from "react-toastify"
 import Container from "react-bootstrap/Container"
+
+import store from "./redux/store"
+
+import Protected from "./components/Protected"
+import NonProtected from "./components/NonProtected"
+import Navbar from "./components/Navbar"
+
 import ChatPage from "./pages/ChatPage"
 import HomePage from "./pages/HomePage"
 import LoginPage from "./pages/LoginPage"
 import ProfilePage from "./pages/ProfilePage"
 import RegisterPage from "./pages/RegisterPage"
 
+import "bootstrap/dist/css/bootstrap.min.css";
+import "react-toastify/dist/ReactToastify.css";
+
 const router = createBrowserRouter([
   {
     path: "/",
     element: (
       <>
-        <HomePage />
+        <Protected>
+          <Navbar />
+          <Container>
+            <HomePage />
+          </Container>
+        </Protected>
       </>
+    ),
     ),
   },
   {
     path: "/chat",
     element: (
       <>
-        <ChatPage />
+        <Protected>
+          <Navbar />
+          <Container>
+            <ChatPage />
+          </Container>
+        </Protected>
       </>
+    ),
     ),
   },
   {
     path: "/profile",
     element: (
       <>
-        <ProfilePage />
+        <Protected>
+          <Navbar />
+          <Container>
+            <ProfilePage />
+          </Container>
+        </Protected>
       </>
+    ),
     ),
   },
   {
     path: "/login",
     element: (
-      <Container>
-        <LoginPage />
-      </Container>
+      <NonProtected>
+        <Navbar />
+        <Container>
+          <LoginPage />
+        </Container>
+      </NonProtected>
     ),
   },
   {
     path: "/register",
     element: (
       <>
-        <RegisterPage />
+        <NonProtected>
+          <Navbar />
+          <Container>
+            <RegisterPage />
+          </Container>
+        </NonProtected>
       </>
+    ),
     ),
   },
 ])
 
 function App() {
-  return <RouterProvider router={router} />
+  return (
+    <Provider store={store}>
+      <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+        <RouterProvider router={router} />
+        <ToastContainer theme="colored" />
+      </GoogleOAuthProvider>
+    </Provider>
+  )
 }
 
 export default App
