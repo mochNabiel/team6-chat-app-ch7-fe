@@ -1,85 +1,71 @@
-import { useEffect, useState } from "react"
-import io from "socket.io-client"
-import ScrollToBottom from "react-scroll-to-bottom"
-import { IoSend } from "react-icons/io5"
+import { useEffect, useState } from "react";
+import { io } from "socket.io-client"; // This socket.io package
+import { useDispatch, useSelector } from "react-redux";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
+import { getAllMessages } from "../redux/actions/message";
+import MessageItem from "../components/Message/MessageItem";
+import AddMessage from "../components/Message/AddMessage";
 
-import "../assets/css/chat.css"
+// Initialization connect to backend websocket (socket.io)
+const socket = io(import.meta.env.VITE_WEBSOCKET_API);
 
-const socket = io("http://localhost:3004")
+function ChatPage() {
+    const dispatch = useDispatch();
 
-const ChatPage = () => {
-  const [currentMessage, setCurrentMessage] = useState("")
-  const [messageList, setMessageList] = useState([])
+    const { messages } = useSelector((state) => state.message);
 
-  const sendMessage = async () => {
-    if (currentMessage !== "") {
-      const messageData = {
-        author: username,
-        message: currentMessage,
-        time:
-          new Date(Date.now()).getHours() +
-          ":" +
-          new Date(Date.now()).getMinutes(),
-      }
+    const [typing, setTyping] = useState(false);
 
-      await socket.emit("send_message", messageData)
-      setMessageList((list) => [...list, messageData])
-      setCurrentMessage("")
-    }
-  }
+    // This useEffect will get all messages from backend
+    useEffect(() => {
+        // Dispatch the getAllMessages actions
+        dispatch(getAllMessages());
+    }, [dispatch]);
 
-  useEffect(() => {
-    socket.on("receive_message", (data) => {
-      setMessageList((list) => [...list, data])
-    })
-  }, [socket])
+    // This useEffect is to connect to backend websocket (socket.io)
+    useEffect(() => {
+        // Connect to backend
+        socket.on("connect", () => {});
 
-  return (
-    <div className="d-flex align-items-center justify-content-center vh-100">
-      <div className="chat-window">
-        <div className="chat-header">
-          <p>Live Chat</p>
-        </div>
-        <div className="chat-body">
-          <ScrollToBottom className="message-container">
-            {messageList.map((messageContent) => {
-              return (
-                <div
-                  className="message"
-                  id={username === messageContent.author ? "you" : "other"}
-                >
-                  <div>
-                    <div className="message-content">
-                      <p>{messageContent.message}</p>
-                    </div>
-                    <div className="message-meta">
-                      <p id="time">{messageContent.time}</p>
-                      <p id="author">{messageContent.author}</p>
-                    </div>
-                  </div>
-                </div>
-              )
-            })}
-          </ScrollToBottom>
-        </div>
-        <div className="chat-footer">
-          <input
-            type="text"
-            value={currentMessage}
-            placeholder="Hey..."
-            onChange={(event) => {
-              setCurrentMessage(event.target.value)
-            }}
-            onKeyPress={(event) => {
-              event.key === "Enter" && sendMessage()
-            }}
-          />
-          <button onClick={sendMessage}>
-            <IoSend />
-          </button>
-        </div>
-      </div>
-    </div>
-  )
+        // It will listen the event name "message"
+        socket.on("message", (message) => {
+            console.log("aku dijalankan!", message);
+            dispatch(getAllMessages());
+        });
+
+        socket.on("ontyping", () => {
+            setTyping(true);
+            setTimeout(() => {
+                setTyping(false);
+            }, 1000);
+        });
+
+        socket.on("getAllMessages", () => {
+            console.log("what happen?");
+        });
+    }, [dispatch]);
+
+    return (
+        <>
+            <Row className="mt-4">
+                <Col>
+                    <h6>{typing && "seseorang sedang mengetik...."}</h6>
+                </Col>
+            </Row>
+
+            <Row className="mt-4">
+                <Col>
+                    {messages?.length > 0 &&
+                        messages?.map((message) => (
+                            <MessageItem data={message} key={message.id} />
+                        ))}
+                </Col>
+
+                <AddMessage socket={socket} />
+            </Row>
+        </>
+    );
 }
-export default ChatPage
+
+export default ChatPage;

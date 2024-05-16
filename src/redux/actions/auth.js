@@ -26,7 +26,7 @@ export const login =
       // get and save the token to local storage
       const {data} = response.data
       const { token, user } = data
-      console.log("token", token)
+      // console.log("token", token)
 
       // Change the token value in the reducer
       dispatch(setToken(token))
