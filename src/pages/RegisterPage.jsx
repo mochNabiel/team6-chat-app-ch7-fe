@@ -1,20 +1,19 @@
+import { Col, Image, Row } from "react-bootstrap"
 import RegisterComponent from "../components/Register"
-import { Row, Col, Card } from "react-bootstrap"
+import registerImage from "../assets/register-image.svg"
 
 const RegisterPage = () => {
   return (
-    <>
-      <Row>
-        <Col md={6} className="offset-md-3 mt-5">
-          <Card className="shadow p-3 mb-5 bg-body-primary rounded">
-            <Card.Header>Register</Card.Header>
-            <Card.Body>
-              <RegisterComponent />
-            </Card.Body>
-          </Card>
+    <div className="d-flex w-100" style={{ minHeight: "calc(100vh - 56px)" }}>
+      <Row className="w-100">
+        <Col md={7} className="d-flex justify-content-center align-items-center">
+          <Image src={registerImage} width={500}/>
+        </Col>
+        <Col md={5} className="d-flex justify-content-center align-items-center">
+          <RegisterComponent />
         </Col>
       </Row>
-    </>
+    </div>
   )
 }
 export default RegisterPage

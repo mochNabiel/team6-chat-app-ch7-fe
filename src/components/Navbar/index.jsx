@@ -13,7 +13,7 @@ function NavbarComponent() {
   }, [dispatch, token])
 
   return (
-    <Navbar expand="lg" className="bg-body-tertiary">
+    <Navbar expand="lg" className="bg-light">
       <Container>
         <Navbar.Brand href="#home">Chat App</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
