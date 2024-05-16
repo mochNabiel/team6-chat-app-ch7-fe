@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useDispatch } from "react-redux"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 import { login } from "../../redux/actions/auth"
 
@@ -22,28 +22,25 @@ function Login() {
   }
 
   return (
-    <>
-      <Form
-        onSubmit={handleSubmit}
-        className="p-2 mb-5 bg-body-primary rounded border"
-      >
+    <div className="w-100 h-100 d-flex flex-column justify-content-center mt-3">
+      <h2 className="text-center">Masuk ke Akunmu</h2>
+      <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
+          <Form.Label className="fw-medium">Email</Form.Label>
           <Form.Control
+            className="rounded-5 py-2"
             type="email"
             placeholder="Enter email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-          <Form.Text className="text-muted">
-            We will never share your email with anyone else.
-          </Form.Text>
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
+          <Form.Label className="fw-medium">Password</Form.Label>
           <Form.Control
+            className="rounded-5 py-2"
             type="password"
             placeholder="Password"
             value={password}
@@ -51,12 +48,26 @@ function Login() {
             required
           />
         </Form.Group>
-        <Button variant="primary" type="submit" disabled={isLoading}>
+        <Button
+          className="rounded-5 w-100 border-1 py-2"
+          variant="primary"
+          type="submit"
+          disabled={isLoading}
+        >
           {isLoading ? "Processing..." : "Login"}
         </Button>
       </Form>
+      <hr className="border-1 bg-secondary my-4"/>
       <GoogleLogin text={"Login with Google"} />
-    </>
+      <p className="text-center mt-3">
+        Dengan masuk akun kamu menyetujui{" "}
+        <span className="text-primary">Syarat & Ketentuan</span> dan{" "}
+        <span className="text-primary">Kebijakan Privasi</span> kami
+      </p>
+      <p className="text-center fw-bold">
+        Belum punya akun? <Link to={"/register"} className="text-decoration-none">Register</Link>
+      </p>
+    </div>
   )
 }
 

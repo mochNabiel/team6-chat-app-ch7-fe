@@ -1,71 +1,83 @@
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client"; // This socket.io package
 import { useDispatch, useSelector } from "react-redux";
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
 import { getAllMessages } from "../redux/actions/message";
 import MessageItem from "../components/Message/MessageItem";
 import AddMessage from "../components/Message/AddMessage";
+import { MainContainer, ChatContainer, MessageList, TypingIndicator } from "@chatscope/chat-ui-kit-react";
+import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 
 // Initialization connect to backend websocket (socket.io)
 const socket = io(import.meta.env.VITE_WEBSOCKET_API);
 
 function ChatPage() {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
+  const { messages } = useSelector((state) => state.message);
 
-    const { messages } = useSelector((state) => state.message);
+  const [typing, setTyping] = useState(false);
+  const [connectedUsers, setConnectedUsers] = useState([]);
 
-    const [typing, setTyping] = useState(false);
+  // This useEffect will get all messages from backend
+  useEffect(() => {
+    dispatch(getAllMessages());
+  }, [dispatch]);
 
-    // This useEffect will get all messages from backend
-    useEffect(() => {
-        // Dispatch the getAllMessages actions
-        dispatch(getAllMessages());
-    }, [dispatch]);
+  // This useEffect is to connect to backend websocket (socket.io)
+  useEffect(() => {
+    socket.on("connect", () => {
+      // Emit user connected event with user information
+      socket.emit("userConnected", user);
+    });
 
-    // This useEffect is to connect to backend websocket (socket.io)
-    useEffect(() => {
-        // Connect to backend
-        socket.on("connect", () => {});
+    socket.on("message", (message) => {
+      console.log("Message received!", message);
+      dispatch(getAllMessages());
+    });
 
-        // It will listen the event name "message"
-        socket.on("message", (message) => {
-            console.log("aku dijalankan!", message);
-            dispatch(getAllMessages());
-        });
+    socket.on("ontyping", () => {
+      setTyping(true);
+      setTimeout(() => {
+        setTyping(false);
+      }, 2000);
+    });
 
-        socket.on("ontyping", () => {
-            setTyping(true);
-            setTimeout(() => {
-                setTyping(false);
-            }, 1000);
-        });
+    socket.on("connectedUsers", (users) => {
+      setConnectedUsers(users);
+    });
 
-        socket.on("getAllMessages", () => {
-            console.log("what happen?");
-        });
-    }, [dispatch]);
+    // Clean up on unmount
+    return () => {
+      socket.off("connect");
+      socket.off("message");
+      socket.off("ontyping");
+      socket.off("connectedUsers");
+    };
+  }, [dispatch, user]);
 
-    return (
-        <>
-            <Row className="mt-4">
-                <Col>
-                    <h6>{typing && "seseorang sedang mengetik...."}</h6>
-                </Col>
-            </Row>
-
-            <Row className="mt-4">
-                <Col>
-                    {messages?.length > 0 &&
-                        messages?.map((message) => (
-                            <MessageItem data={message} key={message.id} />
-                        ))}
-                </Col>
-
-                <AddMessage socket={socket} />
-            </Row>
-        </>
-    );
+  return (
+    <div style={{ height: "80vh" }}>
+      <MainContainer>
+        <ChatContainer>
+          <MessageList typingIndicator={typing ? <TypingIndicator content={`${user?.name} is typing...`} /> : null}>
+            {messages?.length > 0 &&
+              messages?.map((message) => (
+                <MessageItem data={message} key={message.id} />
+              ))}
+          </MessageList>
+        </ChatContainer>
+      </MainContainer>
+      <AddMessage socket={socket}/>
+      {/* <div>
+        <h4>Connected Users:</h4>
+        <ul>
+          {connectedUsers.map((users, index) => (
+            <li key={index}>{users?.name}</li>
+          ))}
+        </ul>
+      </div> */}
+    </div>
+  );
 }
 
 export default ChatPage;
