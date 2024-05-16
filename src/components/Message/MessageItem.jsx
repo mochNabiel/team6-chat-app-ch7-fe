@@ -3,6 +3,7 @@ import PropTypes from "prop-types"
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react"
 import { getProfile } from "../../redux/actions/auth"
+import { Image } from "react-bootstrap"
 
 function MessageItem({ data }) {
   const dispatch = useDispatch()
@@ -22,10 +23,9 @@ function MessageItem({ data }) {
     backgroundColor: data?.user?.id === user?.id ? "green" : "blue",
     color: "white",
   }
-
   return (
     <Card body style={cardStyle}>
-      <img
+      <Image
         src={data?.user?.photo}
         className="rounded-circle"
         width={50}
