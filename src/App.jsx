@@ -24,12 +24,10 @@ const router = createBrowserRouter([
     path: "/",
     element: (
       <>
-        <Protected>
-          <Navbar />
-          <Container>
-            <HomePage />
-          </Container>
-        </Protected>
+        <Navbar />
+        <Container>
+          <HomePage />
+        </Container>
       </>
     ),
   },
