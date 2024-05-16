@@ -15,9 +15,10 @@ const ProfilePage = () => {
   const navigate = useNavigate()
   const { user } = useSelector((state) => state.auth)
 
-  const handleBackToHome = (e) => {
+  const handleReturn = (e) => {
     e.preventDefault()
-    navigate("/")
+    // navigate to previous page
+    navigate(-1)
   }
 
   useEffect(() => {
@@ -57,10 +58,10 @@ const ProfilePage = () => {
                 <Row className="ms-1">
                   <Col lg={6} md={12}>
                     <Button
-                      onClick={(e) => handleBackToHome(e)}
+                      onClick={(e) => handleReturn(e)}
                       variant="outline-warning"
                     >
-                      <IoMdReturnLeft /> Back to home
+                      <IoMdReturnLeft /> Return
                     </Button>
                   </Col>
                 </Row>

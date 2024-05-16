@@ -24,12 +24,12 @@ const router = createBrowserRouter([
     path: "/",
     element: (
       <>
-        <Protected>
+        <NonProtected>
           <Navbar />
           <Container>
             <HomePage />
           </Container>
-        </Protected>
+        </NonProtected>
       </>
     ),
   },
