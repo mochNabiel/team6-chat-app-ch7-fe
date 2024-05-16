@@ -7,7 +7,7 @@ import Spinner from "react-bootstrap/Spinner"
 import { IoMdReturnLeft } from "react-icons/io"
 
 import { getProfile } from "../redux/actions/auth"
-
+import "../styles/profile.css"
 import userProfile from "../assets/user-profile.jpg"
 
 const ProfilePage = () => {
@@ -30,19 +30,27 @@ const ProfilePage = () => {
       <Row className="mt-5">
         <Col md={6} className="offset-md-3">
           <Card
-            className="shadow p-3 mb-5 bg-white rounded"
+            id="card-profile"
+            className=" p-3 mb-5 sm-2"
             style={{ minHeight: "350px" }}
           >
             {user ? (
               <>
-                <Card.Title className="text-center">My Profile</Card.Title>
+                <Card.Title className="text-center"></Card.Title>
                 {user.photo ? (
-                  <Card.Img
-                    height={200}
+                  // <Card.Img
+                  //   // className="roundedCircle"
+                  //   // height={200}
+                  //   // width={50}
+                  //   // src={user?.photo}
+                  //   // variant="top"
+                  //   // style={{ objectFit: "contain" }}
+                  // />
+                  <img
+                    id="image-profile"
                     src={user?.photo}
-                    variant="top"
-                    style={{ objectFit: "contain" }}
-                  />
+                    className="card-img-profile"
+                  ></img>
                 ) : (
                   <Card.Img
                     height={200}
@@ -51,17 +59,21 @@ const ProfilePage = () => {
                     style={{ objectFit: "contain" }}
                   />
                 )}
-                <Card.Body>
-                  <Card.Title>Name : {user?.name}</Card.Title>
-                  <Card.Title>Email : {user?.email}</Card.Title>
+                <Card.Body className="card-body">
+                  <Card.Title id="text-profile" className="mb-4">
+                    <h2>{user?.name}</h2>
+                  </Card.Title>
+                  <Card.Title id="text-profile" className="mb-5">
+                    Email : {user?.email}
+                  </Card.Title>
                 </Card.Body>
-                <Row className="ms-1">
+                <Row className="md-6 ">
                   <Col lg={6} md={12}>
                     <Button
                       onClick={(e) => handleReturn(e)}
-                      variant="outline-warning"
+                      variant="outline-success"
                     >
-                      <IoMdReturnLeft /> Return
+                      <IoMdReturnLeft /> Return Home
                     </Button>
                   </Col>
                 </Row>
