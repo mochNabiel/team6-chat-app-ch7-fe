@@ -28,7 +28,7 @@ const ProfilePage = () => {
   return (
     <>
       <Row className=" mt-5 d-flex justify-content-center">
-         {" "}
+        {" "}
         <Col md={6} className="">
           <Card
             id="card-profile"
