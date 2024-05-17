@@ -1,8 +1,10 @@
 import { useEffect } from "react"
-import { Container, Image, Nav, Navbar } from "react-bootstrap"
+import { Container, Dropdown, Image, Nav, Navbar } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { getProfile } from "../../redux/actions/auth"
+
+import logoGibahin from '../../assets/logo-gibahin.png'
 
 function NavbarComponent() {
   const dispatch = useDispatch()
@@ -13,40 +15,33 @@ function NavbarComponent() {
   }, [dispatch, token])
 
   return (
-    <Navbar expand="lg" className="bg-light">
+    <Navbar expand="lg" className="bg-blue">
       <Container>
-        <Navbar.Brand href="#home">Chat App</Navbar.Brand>
+        <Navbar.Brand as={Link} to={'/'}>
+          <img src={logoGibahin} style={{ height : "50px"}}/>
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link as={Link} to="/">
-              Home
-            </Nav.Link>
+        <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
+          <Nav>
             {user ? (
-              <>
-                <Nav.Link as={Link} to="/profile">
-                  {user?.photo && (
-                    <Image
-                      src={user.photo}
-                      roundedCircle
-                      width={30}
-                      height={30}
-                      style={{ objectFit: "cover" }}
-                    />
-                  )}{" "}
-                  {user?.name}
-                </Nav.Link>
-                <Nav.Link
-                  as={Link}
-                  onClick={() => {
+              <Dropdown alignRight>
+                <Dropdown.Toggle as={Nav.Link}>
+                  <Image
+                    src={user.photo}
+                    roundedCircle
+                    width={30}
+                    height={30}
+                    style={{ objectFit: "cover" }}
+                  />
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <Dropdown.Item as={Link} to="/profile">Profile</Dropdown.Item>
+                  <Dropdown.Item onClick={() => {
                     localStorage.removeItem("token")
                     window.location = "/"
-                  }}
-                  className="text-danger"
-                >
-                  Logout
-                </Nav.Link>
-              </>
+                  }}>Logout</Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
             ) : (
               <>
                 <Nav.Link as={Link} to="/login">
