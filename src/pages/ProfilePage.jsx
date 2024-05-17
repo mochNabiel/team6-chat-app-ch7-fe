@@ -69,7 +69,7 @@ const ProfilePage = () => {
                     variant="outline-primary"
                     style={{ maxWidth: "150px" }}
                   >
-                    <IoMdReturnLeft /> Return Home
+                    <IoMdReturnLeft /> Kembali
                   </Button>
                 </Row>
               </>
