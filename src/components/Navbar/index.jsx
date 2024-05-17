@@ -1,14 +1,25 @@
 import { useEffect } from "react"
 import { Container, Dropdown, Image, Nav, Navbar } from "react-bootstrap"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
-import { getProfile } from "../../redux/actions/auth"
+import { getProfile, logout } from "../../redux/actions/auth"
 
-import logoGibahin from '../../assets/logo-gibahin.png'
+import { FaUser } from "react-icons/fa6"
+import { IoLogOut } from "react-icons/io5"
+
+import logoGibahin from "../../assets/logo-gibahin.png"
+import { toast } from "react-toastify"
 
 function NavbarComponent() {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const { user, token } = useSelector((state) => state.auth)
+
+  const handleLogout = () => {
+    dispatch(logout())
+    navigate("/")
+    toast.success("Logout successfully")
+  }
 
   useEffect(() => {
     dispatch(getProfile())
@@ -17,14 +28,14 @@ function NavbarComponent() {
   return (
     <Navbar expand="lg" className="bg-blue">
       <Container>
-        <Navbar.Brand as={Link} to={'/'}>
-          <img src={logoGibahin} style={{ height : "50px"}}/>
+        <Navbar.Brand as={Link} to={"/"}>
+          <img src={logoGibahin} style={{ height: "50px" }} />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
           <Nav>
             {user ? (
-              <Dropdown alignRight>
+              <Dropdown>
                 <Dropdown.Toggle as={Nav.Link}>
                   <Image
                     src={user.photo}
@@ -35,11 +46,15 @@ function NavbarComponent() {
                   />
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                  <Dropdown.Item as={Link} to="/profile">Profile</Dropdown.Item>
-                  <Dropdown.Item onClick={() => {
-                    localStorage.removeItem("token")
-                    window.location = "/"
-                  }}>Logout</Dropdown.Item>
+                  <Dropdown.Item as={Link} to="/profile">
+                    <FaUser /> Profile
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    className="text-danger"
+                    onClick={handleLogout}
+                  >
+                    <IoLogOut /> Logout
+                  </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             ) : (
