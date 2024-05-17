@@ -24,7 +24,7 @@ export const login =
       const response = await axios.request(config)
       // console.log(response.data)
       // get and save the token to local storage
-      const {data} = response.data
+      const { data } = response.data
       const { token, user } = data
       // console.log("token", token)
 
@@ -34,6 +34,7 @@ export const login =
 
       // redirect to home
       navigate("/")
+      toast.success("Login successfully")
     } catch (error) {
       toast.error(error?.response?.data?.message)
 
@@ -76,6 +77,7 @@ export const register =
       localStorage.setItem("token", token)
 
       navigate("/")
+      toast.success("Register successfully")
     } catch (error) {
       toast.error(error?.response?.data?.message)
 
@@ -161,6 +163,8 @@ export const loginWithGoogle = (navigate, accessToken) => async (dispatch) => {
 
     // redirect to home
     navigate("/") // it will be not consistent, so alternative we use window until we used the state management
+
+    toast.success("Login with Google successfully")
   } catch (error) {
     toast.error(error?.response?.data?.message)
 
@@ -168,8 +172,10 @@ export const loginWithGoogle = (navigate, accessToken) => async (dispatch) => {
   }
 }
 
-export const logout = () => (dispatch) => {
+export const logout = (navigate) => (dispatch) => {
   localStorage.removeItem("token")
   dispatch(setToken(null))
   dispatch(setUser(null))
+  navigate("/")
+  toast.success("Logout successfully")
 }

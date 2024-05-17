@@ -8,6 +8,7 @@ import { FaUser } from "react-icons/fa6"
 import { IoLogOut } from "react-icons/io5"
 
 import logoGibahin from "../../assets/logo-gibahin.png"
+import userProfile from "../../assets/user-profile.jpg"
 
 function NavbarComponent() {
   const dispatch = useDispatch()
@@ -15,9 +16,7 @@ function NavbarComponent() {
   const { user, token } = useSelector((state) => state.auth)
 
   const handleLogout = () => {
-    dispatch(logout())
-    navigate("/")
-    toast.success("Logout successfully")
+    dispatch(logout(navigate))
   }
 
   useEffect(() => {
@@ -37,7 +36,7 @@ function NavbarComponent() {
               <Dropdown>
                 <Dropdown.Toggle as={Nav.Link}>
                   <Image
-                    src={user.photo}
+                    src={user.photo ? user.photo : userProfile}
                     roundedCircle
                     width={30}
                     height={30}
@@ -46,15 +45,10 @@ function NavbarComponent() {
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                   <Dropdown.Item as={Link} to="/profile">
-                    Profile
+                    <FaUser /> Profile
                   </Dropdown.Item>
-                  <Dropdown.Item
-                    onClick={() => {
-                      localStorage.removeItem("token")
-                      window.location = "/"
-                    }}
-                  >
-                    Logout
+                  <Dropdown.Item className="text-danger" onClick={handleLogout}>
+                    <IoLogOut /> Logout
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>

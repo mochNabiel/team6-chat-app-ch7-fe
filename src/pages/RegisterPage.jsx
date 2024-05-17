@@ -4,7 +4,7 @@ import registerImage from "../assets/register-image.svg"
 
 const RegisterPage = () => {
   return (
-    <div className="d-flex w-100" style={{ minHeight: "calc(100vh - 56px)" }}>
+    <div className="d-flex w-100" style={{ minHeight: "80vh" }}>
       <Row className="w-100">
         <Col md={7} className="d-flex justify-content-center align-items-center">
           <Image src={registerImage} width={500}/>
