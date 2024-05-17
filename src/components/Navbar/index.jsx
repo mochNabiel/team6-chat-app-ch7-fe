@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { getProfile } from "../../redux/actions/auth"
 
-import logoGibahin from '../../assets/logo-gibahin.png'
+import logoGibahin from "../../assets/logo-gibahin.png"
 
 function NavbarComponent() {
   const dispatch = useDispatch()
@@ -17,14 +17,14 @@ function NavbarComponent() {
   return (
     <Navbar expand="lg" className="bg-blue">
       <Container>
-        <Navbar.Brand as={Link} to={'/'}>
-          <img src={logoGibahin} style={{ height : "50px"}}/>
+        <Navbar.Brand as={Link} to={"/"}>
+          <img src={logoGibahin} style={{ height: "50px" }} />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
           <Nav>
             {user ? (
-              <Dropdown alignRight>
+              <Dropdown>
                 <Dropdown.Toggle as={Nav.Link}>
                   <Image
                     src={user.photo}
@@ -35,11 +35,17 @@ function NavbarComponent() {
                   />
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                  <Dropdown.Item as={Link} to="/profile">Profile</Dropdown.Item>
-                  <Dropdown.Item onClick={() => {
-                    localStorage.removeItem("token")
-                    window.location = "/"
-                  }}>Logout</Dropdown.Item>
+                  <Dropdown.Item as={Link} to="/profile">
+                    Profile
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    onClick={() => {
+                      localStorage.removeItem("token")
+                      window.location = "/"
+                    }}
+                  >
+                    Logout
+                  </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             ) : (

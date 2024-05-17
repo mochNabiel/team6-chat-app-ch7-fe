@@ -2,12 +2,12 @@ import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 
-import { Button, Card, Row, Col } from "react-bootstrap"
+import { Button, Card, Row, Col, Container } from "react-bootstrap"
 import Spinner from "react-bootstrap/Spinner"
 import { IoMdReturnLeft } from "react-icons/io"
 
 import { getProfile } from "../redux/actions/auth"
-
+import "../styles/profile.css"
 import userProfile from "../assets/user-profile.jpg"
 
 const ProfilePage = () => {
@@ -27,43 +27,50 @@ const ProfilePage = () => {
 
   return (
     <>
-      <Row className="mt-5">
-        <Col md={6} className="offset-md-3">
+      <Row className=" mt-5 d-flex justify-content-center">
+        {" "}
+        <Col md={6} className="">
           <Card
-            className="shadow p-3 mb-5 bg-white rounded"
+            id="card-profile"
+            className=" p-2 mb-5 "
             style={{ minHeight: "350px" }}
           >
             {user ? (
               <>
-                <Card.Title className="text-center">My Profile</Card.Title>
                 {user.photo ? (
-                  <Card.Img
-                    height={200}
-                    src={user?.photo}
-                    variant="top"
-                    style={{ objectFit: "contain" }}
-                  />
+                  <Row className="background p-3">
+                    <Container className="d-flex justify-content-center">
+                      <img
+                        id="image-profile"
+                        src={user?.photo}
+                        className="card-img-profile"
+                      />
+                    </Container>
+                  </Row>
                 ) : (
-                  <Card.Img
-                    height={200}
+                  <img
+                    id="image-profile"
                     src={userProfile}
-                    variant="top"
-                    style={{ objectFit: "contain" }}
-                  />
+                    className="card-img-profile"
+                  ></img>
                 )}
-                <Card.Body>
-                  <Card.Title>Name : {user?.name}</Card.Title>
-                  <Card.Title>Email : {user?.email}</Card.Title>
+                <Card.Body className="card-body ">
+                  <Card.Title id="text-profile" className="mb-4 mb-5">
+                    <h2>{user?.name}</h2>
+                  </Card.Title>
+                  <Card.Title id="text-profile" className="mb-5">
+                    Email : {user?.email}
+                  </Card.Title>
                 </Card.Body>
-                <Row className="ms-1">
-                  <Col lg={6} md={12}>
-                    <Button
-                      onClick={(e) => handleReturn(e)}
-                      variant="outline-warning"
-                    >
-                      <IoMdReturnLeft /> Return
-                    </Button>
-                  </Col>
+                <Row className="md-6 justify-content-center">
+                  <Button
+                    className="m-3"
+                    onClick={(e) => handleReturn(e)}
+                    variant="outline-primary"
+                    style={{ maxWidth: "150px" }}
+                  >
+                    <IoMdReturnLeft /> Return Home
+                  </Button>
                 </Row>
               </>
             ) : (
