@@ -8,6 +8,7 @@ import logoGibahin from "../assets/logo-gibahin.png"
 import devAufar from "../assets/dev_aufar.jpeg"
 import devNabiel from "../assets/dev_nabiel.jpeg"
 import devKukuh from "../assets/dev_kukuh.png"
+import devHukma from "../assets/dev_hukma.jpg"
 
 const HomePage = () => {
   const { user } = useSelector((state) => state.auth)
@@ -62,6 +63,12 @@ const HomePage = () => {
                   <Image src={devKukuh} alt="Dev Kukuh" roundedCircle width={80} height={80} />
                 </Link>
                 <p>Kukuh</p>
+              </div>
+              <div className="mx-4">
+                <Link to="https://github.com/hukmakun1">
+                  <Image src={devHukma} alt="Dev Hukma" roundedCircle width={80} height={80} />
+                </Link>
+                <p>Hukma</p>
               </div>
             </div>
           </Col>
