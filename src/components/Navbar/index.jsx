@@ -8,7 +8,6 @@ import { FaUser } from "react-icons/fa6"
 import { IoLogOut } from "react-icons/io5"
 
 import logoGibahin from "../../assets/logo-gibahin.png"
-import { toast } from "react-toastify"
 
 function NavbarComponent() {
   const dispatch = useDispatch()
@@ -47,13 +46,15 @@ function NavbarComponent() {
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                   <Dropdown.Item as={Link} to="/profile">
-                    <FaUser /> Profile
+                    Profile
                   </Dropdown.Item>
                   <Dropdown.Item
-                    className="text-danger"
-                    onClick={handleLogout}
+                    onClick={() => {
+                      localStorage.removeItem("token")
+                      window.location = "/"
+                    }}
                   >
-                    <IoLogOut /> Logout
+                    Logout
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>

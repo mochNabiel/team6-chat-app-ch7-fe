@@ -7,7 +7,7 @@ const HomePage = () => {
 
   return (
     <Row>
-      <div className="row p-4 pb-0 pe-lg-0 pt-lg-5 mt-5 align-items-center rounded-3 border shadow-lg">
+      <div className="row p-4 pb-0 pe-lg-0 pt-lg-5 mt-5 align-items-center rounded-3 border shadow-lg bg-white">
         <div className="col-lg-7 p-3 p-lg-5 pt-lg-3">
           <h1 className="display-4 fw-bold lh-1 text-body-emphasis my-3">
             Gibahin
@@ -18,7 +18,7 @@ const HomePage = () => {
             and intuitive interface, Gibahin offers a chatting experience that
             goes beyond just exchanging messages.
           </p>
-          <div className="d-grid gap-2 d-mb-lg-3 justify-content-md-start">
+          <div className="d-grid gap-2 d-mb-lg-3 justify-content-md-start mb-4">
             {user ? (
               <Button
                 type="button"
