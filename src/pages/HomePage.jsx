@@ -46,15 +46,21 @@ const HomePage = () => {
             <h5>Developing by:</h5>
             <div className="d-flex justify-content-center align-items-center mt-4">
               <div className="mx-4">
-                <Image src={devAufar} alt="Dev Aufar" roundedCircle width={80} height={80} />
+                <Link to="https://github.com/aufarabul">
+                  <Image src={devAufar} alt="Dev Aufar" roundedCircle width={80} height={80} />
+                </Link>
                 <p>Aufar</p>
               </div>
               <div className="mx-4">
-                <Image src={devNabiel} alt="Dev Nabiel" roundedCircle width={80} height={80} />
+                <Link to="https://github.com/mochNabiel">
+                  <Image src={devNabiel} alt="Dev Nabiel" roundedCircle width={80} height={80} />
+                </Link>
                 <p>Nabiel</p>
               </div>
               <div className="mx-4">
-                <Image src={devKukuh} alt="Dev Kukuh" roundedCircle width={80} height={80} />
+                <Link to="https://github.com/dvlboo">
+                  <Image src={devKukuh} alt="Dev Kukuh" roundedCircle width={80} height={80} />
+                </Link>
                 <p>Kukuh</p>
               </div>
             </div>
