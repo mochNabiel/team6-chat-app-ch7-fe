@@ -37,11 +37,10 @@ export const login =
       toast.success("Login successfully")
     } catch (error) {
       toast.error(error?.response?.data?.message)
-
+      setIsLoading(false)
       dispatch(logout())
     }
 
-    setIsLoading(false)
   }
 
 export const register =
@@ -80,11 +79,9 @@ export const register =
       toast.success("Register successfully")
     } catch (error) {
       toast.error(error?.response?.data?.message)
-
+      setIsLoading(false)
       dispatch(logout())
     }
-
-    setIsLoading(false)
   }
 
 export const getProfile =
