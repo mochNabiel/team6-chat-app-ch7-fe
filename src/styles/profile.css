@@ -5,33 +5,31 @@
   margin: 0 auto;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   object-fit: contain;
-  animation: float 6s ease-in-out infinite;
+  animation: float 4s ease-in-out infinite;
 }
-Card {
-  padding: 1.5em 0.5em 0.5em;
-  border-radius: 2em;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-}
+
 #text-profile {
   color: #000000;
   font-family: "Montserrat";
   text-align: center;
 }
 
-#card-profile {
-  background: linear-gradient(to right top, #69f3de, #ffad8f);
-  max-height: 500px;
-  padding: 1.5em 0.5em 0.5em;
-  border-radius: 3em;
-  text-align: left;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+.background {
+  background: linear-gradient(to right top, #b2e3fe, #1940ff);
+  border-radius: 2em;
 }
 
-#card-body {
-  background-color: #e3e1d9;
+#card-profile {
+  padding: 1.5em 0.5em 0.5em;
+  border-radius: 2em;
+  text-align: center;
+  box-shadow: 0 20px 20px rgb(68, 166, 212);
+}
+
+.card-body {
   padding: 1.5em 0.5em 0.5em;
   border-radius: 0.5em;
-  text-align: left;
+  text-align: center;
 }
 
 @keyframes float {
